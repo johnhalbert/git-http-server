@@ -18,6 +18,6 @@ env -i /usr/bin/spawn-fcgi \
   -- \
   "${FCGI_PROGRAM}"
 
-sudo -u nginx /usr/local/bin/repomng &
+sudo -u nginx /usr/local/bin/repomng --bind 0.0.0.0:8080 &
 
 exec /docker-entrypoint.sh "$@"

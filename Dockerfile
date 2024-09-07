@@ -22,6 +22,9 @@ END
 
 FROM nginx:alpine
 
+EXPOSE 80
+EXPOSE 8080
+
 RUN apk --no-cache --update upgrade && \
     apk --no-cache add \
     fcgiwrap \
@@ -38,7 +41,9 @@ RUN apk --no-cache --update upgrade && \
     git config --system http.receivepack true && \
     git config --system http.uploadpack true && \
     git config --system user.email "gitserver@git.com" && \
-    git config --system user.name "Git Server"
+    git config --system user.name "Git Server" && \
+    mkdir -p /srv/git && \
+    chown nginx:nginx /srv/git
 
 COPY ./scripts/entrypoint.sh /git-http-server-entrypoint.sh
 COPY ./etc/gitweb.conf /etc/gitweb.conf
